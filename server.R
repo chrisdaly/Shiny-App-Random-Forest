@@ -3,6 +3,11 @@ source("scenario_planner.R")
 
 function(input, output) {
   
+  data <- reactive(function() {
+    # some processing
+    df # dataframe with columns: name,date,count 
+  })
+  
   output$user_data <- renderTable({
     inFile <- input$user_file
     
@@ -29,4 +34,6 @@ function(input, output) {
     predictions1(df)
     
   })
+  
+
 }

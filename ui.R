@@ -27,13 +27,15 @@ fluidPage(
 
     mainPanel(
       
+      # User data.
       h2("Your input"),
       tableOutput('user_data'),
       
-      # Predictions
+      # Predictions.
       h2("Model predictions"),
       tableOutput('model_predictions'),
       
+      # Download button.
       radioButtons("filetype", "File type:",
                    choices = c("csv", "tsv")),
       downloadButton('downloadData', 'Download')
@@ -43,8 +45,5 @@ fluidPage(
     )
   )
 )
-# Show a plot of the generated distribution
-#mainPanel(
-#  plotOutput("distPlot"),
-  
+
   
