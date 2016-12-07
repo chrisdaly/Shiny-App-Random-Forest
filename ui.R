@@ -2,12 +2,15 @@ library(shiny)
 
 fluidPage(
   titlePanel("Sony Models"),
+  
+  
   sidebarLayout(
     sidebarPanel(
-      fileInput('file1', 'Choose CSV File',
+      fileInput('user_file', 'Upload CSV File',
                 accept=c('text/csv', 
                          'text/comma-separated-values,text/plain', 
                          '.csv')),
+
       tags$hr(),
       checkboxInput('header', 'Header', TRUE),
       radioButtons('sep', 'Separator',
@@ -21,11 +24,21 @@ fluidPage(
                      'Single Quote'="'"),
                    '"')
     ),
-    
-    
+
     mainPanel(
-      tableOutput('contents'),
-      tableOutput('table')
+      
+      h2("Your input"),
+      tableOutput('user_data'),
+      
+      # Predictions
+      h2("Model predictions"),
+      tableOutput('model_predictions'),
+      
+      radioButtons("filetype", "File type:",
+                   choices = c("csv", "tsv")),
+      downloadButton('downloadData', 'Download')
+      
+      
       
     )
   )
