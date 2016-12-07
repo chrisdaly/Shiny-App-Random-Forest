@@ -3,18 +3,14 @@ source("scenario_planner.R")
 server = function(input, output) {
   
   data1 <- reactive({
-    #if(input$load_button == 0){return()}
-    
     validate(
       need(input$user_file, "Upload a file!")
     )
-    
     
     inFile <- input$user_file
     if (is.null(inFile)){return(NULL)}
     
     isolate({ 
-      #input$load_button
       my_data <- read.csv(inFile$datapath, header = input$header,sep = input$sep, quote = input$quote)
     })
 
