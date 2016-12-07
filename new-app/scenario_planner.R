@@ -1,12 +1,7 @@
 library(randomForest)
 
 
-predictions1 <- function(inputs) {
-  #print(inputs)
-  #print(typeof(inputs))
-  
-  #print('predictions1')
-  
+predictions <- function(inputs) {
   # Read the model metadata
   models = read.csv('model_details.csv', as.is=TRUE)
   
@@ -41,4 +36,4 @@ predictions1 <- function(inputs) {
     
   }
   predictions
-  }
+}

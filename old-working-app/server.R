@@ -4,8 +4,9 @@ source("scenario_planner.R")
 function(input, output) {
   
   data <- reactive(function() {
-    # some processing
-    df # dataframe with columns: name,date,count 
+    
+    read.csv(inFile$datapath, header=input$header, sep=input$sep, 
+             quote=input$quote)
   })
   
   output$user_data <- renderTable({
@@ -35,5 +36,4 @@ function(input, output) {
     
   })
   
-
 }

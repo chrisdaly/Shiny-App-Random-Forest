@@ -1,0 +1,6 @@
+id,rda_file,forest_name,sony_input,actuals_column
+SALES_PHY,sales_phy_rf.rda,sales_phy_reduced.rf,sony_input_sales_phy.csv,phys_8_week_txns_log
+SALES_EST,sales_est_rf.rda,sales_est_reduced.rf,sony_input_sales_est.csv,est_8_week_txns_log
+RENT_PHY,rent_phy_rf.rda,rent_phy_reduced.rf,sony_input_rent_phy.csv,prt_8_week_txns_log
+RENT_IVOD,rent_ivod_rf.rda,rent_ivod_reduced.rf,sony_input_rent_ivod.csv,ivod_8_week_txns_log
+RENT_RVOD,rent_rvod_rf.rda,rent_rvod_reduced.rf,sony_input_rent_rvod.csv,rvod_8_week_txns_log

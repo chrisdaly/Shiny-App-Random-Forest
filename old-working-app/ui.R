@@ -1,5 +1,3 @@
-library(shiny)
-
 fluidPage(
   titlePanel("Sony Models"),
   
@@ -10,7 +8,7 @@ fluidPage(
                 accept=c('text/csv', 
                          'text/comma-separated-values,text/plain', 
                          '.csv')),
-
+      
       tags$hr(),
       checkboxInput('header', 'Header', TRUE),
       radioButtons('sep', 'Separator',
@@ -24,7 +22,7 @@ fluidPage(
                      'Single Quote'="'"),
                    '"')
     ),
-
+    
     mainPanel(
       
       # User data.
@@ -36,14 +34,13 @@ fluidPage(
       tableOutput('model_predictions'),
       
       # Download button.
-      radioButtons("filetype", "File type:",
-                   choices = c("csv", "tsv")),
-      downloadButton('downloadData', 'Download')
+      #radioButtons("filetype", "File type:",
+      #choices = c("csv", "tsv")),
+      #downloadButton('downloadData', 'Download'),
+      downloadLink('downloadData', 'Download')
       
       
       
     )
   )
 )
-
-  
