@@ -32,7 +32,7 @@ server = function(input, output) {
   # User data preview.
   output$user_data <- renderTable({
     df <- data1()
-    df[1:8install.packages('rsconnect')]
+    df[1:6]
   }) 
   
   # Model predictions.
