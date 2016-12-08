@@ -1,6 +1,4 @@
 source("scenario_planner.R")
-library(dplyr)
-
 
 server = function(input, output) {
   data1 <- reactive({
@@ -32,8 +30,6 @@ server = function(input, output) {
     df_pred
   })
   
-  
-  
   # Display user data.
   output$user_data <- renderTable({
     # Fetch the data.
@@ -58,27 +54,19 @@ server = function(input, output) {
   }) 
   
   # Display predictions.
-  output$model_predictions <- renderTable({get_predictions()})  
+  output$model_predictions <- renderTable({get_predictions()}, align='lr')  
   
   
   # Download handler.
   output$downloadData <- downloadHandler(
+    # Set filename.
     filename = function() { 
       'predictions.csv'
     },
+    
+    # Write file.
     content = function(file) {
       write.csv(get_predictions(), file, row.names=FALSE)
     }
   )
 }
-
-
-
-# Reactivity
-# http://shiny.rstudio.com/gallery/reactivity.html
-
-# Sliders, graphs
-# http://shiny.rstudio.com/gallery/retirement-simulation.html
-
-# Select columns
-#http://stackoverflow.com/questions/36784906/shiny-allowling-users-to-choose-which-columns-to-display
