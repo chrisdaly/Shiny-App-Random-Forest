@@ -6,16 +6,17 @@ fluidPage(
   
     fluidRow(
       column(3,
-             h3("User data"),
-             fileInput("user_file", "File input:")
+             h4("User data"),
+             fileInput("user_file", "File input:"),
+             helpText("Upload a CSV file with a header and one row of data.")
              ),
       column(5,
-             h3("User data preview"),
+             h4("User data preview"),
              tableOutput("user_data")
             ),
       column(4,
              # Predictions.
-             h3("Model predictions"),
+             h4("Model predictions"),
              tableOutput('model_predictions'),
              downloadButton('downloadData', 'Download')
             )

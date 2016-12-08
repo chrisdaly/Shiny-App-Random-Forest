@@ -3,48 +3,65 @@ library(dplyr)
 
 
 server = function(input, output) {
-  
   data1 <- reactive({
+    
+    # Gives error message if no file uploaded.
     validate(
       need(input$user_file, "Upload a file!")
     )
     
+    # Return null if file is empty.
     inFile <- input$user_file
     if (is.null(inFile)){return(NULL)}
     
+    # Only read in data when user explicity does so.
     isolate({ 
-      my_data <- read.csv(inFile$datapath, header=FALSE)
+      my_data <- read.csv(inFile$datapath, header=TRUE)
     })
-    
   })
   
   get_predictions <- reactive({
-    #if(input$load_button == 0){return()}
-    
+    # Fetch the data.
     df <- data1()
     
-    names(df) <- as.matrix(df[1, ])
-    df <- df[-1, ]
-    df[] <- lapply(df, function(x) type.convert(as.character(x)))
-    df
+    # Calc predictions from business code.
+    df_pred <- predictions(df)
     
-    if(is.null(df)){return()}
-    
-    predictions(df)
+    # Format the numbers for output.
+    df_pred$prediction <- sapply(df_pred$prediction, FUN=function(x) prettyNum(x, big.mark=","))
+    df_pred
   })
   
-  # User data preview.
+  
+  
+  # Display user data.
   output$user_data <- renderTable({
+    # Fetch the data.
     df <- data1()
-    t(df)
+    
+    # Copy the header into an extra row.
+    df[2, ] <- names(df)
+
+    # Tranpose the df.
+    df <- t(df)
+    
+    # Swap column order.
+    df <- df[, c(2, 1)]
+    
+    # Rename cols.
+    colnames(df) <- c('parameter','value')
+    
+    # Coerce to df type.
+    df <- as.data.frame(df)
+    
+    df
   }) 
   
-  output$table <- renderDataTable({df}, 
-                                  options = list(scrollX = TRUE))
-  
-  # Model predictions.
+  # Display predictions.
   output$model_predictions <- renderTable({get_predictions()})  
   
+  
+  # Download handler.
   output$downloadData <- downloadHandler(
     filename = function() { 
       'predictions.csv'
@@ -54,7 +71,6 @@ server = function(input, output) {
     }
   )
 }
-
 
 
 
