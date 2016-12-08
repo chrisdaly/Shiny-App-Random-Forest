@@ -57,8 +57,8 @@ server = function(input, output) {
   output$model_predictions <- renderTable({get_predictions()}, align='lr')  
   
   
-  # Download handler.
-  output$downloadData <- downloadHandler(
+  # Predictions download handler.
+  output$downloadPredictions <- downloadHandler(
     # Set filename.
     filename = function() { 
       'predictions.csv'
@@ -67,6 +67,19 @@ server = function(input, output) {
     # Write file.
     content = function(file) {
       write.csv(get_predictions(), file, row.names=FALSE)
+    }
+  )
+  
+  # Sample download handler.
+  output$downloadExample <- downloadHandler(
+    # Set filename.
+    filename = function() { 
+      'sample_data.csv'
+    },
+    
+    # Write file.
+    content = function(file) {
+      write.csv(read.csv('input data.csv'), file, row.names=FALSE)
     }
   )
 }
