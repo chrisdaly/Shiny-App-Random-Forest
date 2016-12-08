@@ -1,4 +1,6 @@
 source("scenario_planner.R")
+library(dplyr)
+
 
 server = function(input, output) {
   
@@ -11,25 +13,34 @@ server = function(input, output) {
     if (is.null(inFile)){return(NULL)}
     
     isolate({ 
-      my_data <- read.csv(inFile$datapath, header = input$header,sep = input$sep, quote = input$quote)
+      my_data <- read.csv(inFile$datapath, header=FALSE)
     })
-
+    
   })
   
   get_predictions <- reactive({
     #if(input$load_button == 0){return()}
     
     df <- data1()
+    
+    names(df) <- as.matrix(df[1, ])
+    df <- df[-1, ]
+    df[] <- lapply(df, function(x) type.convert(as.character(x)))
+    df
+    
     if(is.null(df)){return()}
-  
+    
     predictions(df)
   })
-
+  
   # User data preview.
   output$user_data <- renderTable({
     df <- data1()
-    df[1:6]
+    t(df)
   }) 
+  
+  output$table <- renderDataTable({df}, 
+                                  options = list(scrollX = TRUE))
   
   # Model predictions.
   output$model_predictions <- renderTable({get_predictions()})  

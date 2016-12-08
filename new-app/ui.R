@@ -1,37 +1,45 @@
-ui = fluidPage(
+library(shinythemes)
 
-sidebarPanel(
-titlePanel("Sony Models into RShiny"),
-fileInput('user_file', 'Upload CSV File',
-      accept=c('text/csv', 
-               'text/comma-separated-values,text/plain', 
-               '.csv')),
-
-tags$hr(),
-checkboxInput('header', 'Header', TRUE),
-radioButtons('sep', 'Separator',
-         c(Comma=',',
-           Semicolon=';',
-           Tab='\t'),
-         ','),
-
-radioButtons('quote', 'Quote',
-         c(None='',
-           'Double Quote'='"',
-           'Single Quote'="'"),
-         '"')
-),
-
-mainPanel(
-
-# User data.
-h2("Input data preview"),
-tableOutput("user_data"),
-
-# Predictions.
-h2("Model predictions"),
-tableOutput('model_predictions'),
-
-downloadButton('downloadData', 'Download')
-)
+fluidPage(
+  navbarPage(
+    theme = shinytheme("spacelab"), "RShiny",
+    
+    tabPanel("Home",
+             sidebarPanel(
+               fileInput("user_file", "File input:"),
+               tags$hr()
+             ),
+             
+             mainPanel(
+               tabsetPanel(
+                 tabPanel("Data",
+                          h3("Input data preview"),
+                          tableOutput("user_data"),
+                          
+                          
+                          
+                          # Predictions.
+                          h3("Model predictions"),
+                          tableOutput('model_predictions'),
+                          
+                          downloadButton('downloadData', 'Download')
+                 ),
+                 tabPanel("Test",
+                          h4("Table"),
+                          tableOutput("table"),
+                          h4("Verbatim text output"),
+                          verbatimTextOutput("txtout"),
+                          h1("Header 1"),
+                          h2("Header 2"),
+                          h3("Header 3"),
+                          h4("Header 4"),
+                          h5("Header 5"),
+                          tags$code('SALES_PHY')),
+                 tabPanel("Tab 3")
+               )
+             )
+    ),
+    tabPanel("Codebook"),
+    tabPanel("About")
+  )
 )
