@@ -1,8 +1,7 @@
 library(shinythemes)
 
 fluidPage(
-  navbarPage(
-    theme = shinytheme("spacelab"), "Sony - RShiny",
+    theme = shinytheme("spacelab"), h1("Sony - RShiny"),
   
     fluidRow(
       column(3,
@@ -20,5 +19,4 @@ fluidPage(
              tableOutput('model_predictions'),
              downloadButton('downloadData', 'Download')
             )
-    )
 ))
