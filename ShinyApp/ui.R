@@ -18,6 +18,7 @@ fluidPage(
              # Predictions.
              h4("Model predictions"),
              tableOutput('model_predictions'),
-             downloadButton('downloadPredictions', 'Download')
+             downloadButton('downloadPredictions', 'Download'),
+             plotlyOutput("plot")
             )
 ))
