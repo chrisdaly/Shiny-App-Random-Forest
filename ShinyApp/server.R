@@ -1,5 +1,4 @@
 source("scenario_planner.R")
-library(plotly)
 
 server = function(input, output) {
   data1 <- reactive({
@@ -110,9 +109,14 @@ server = function(input, output) {
       y = ~prediction,
       name = "SF Zoo",
       type = "bar"
-    )
+    )%>%
+    layout(yaxis = list(title = 'Count'),
+           xaxis = list(title = 'Model'))
+    
+    
   })
 }
 
+# library('rsconnect')
 # deployApp(appName="Sony-ShinyApp")
 # https://inspirationinformation.shinyapps.io/SpotifyDiscography/ 

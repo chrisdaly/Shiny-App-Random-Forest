@@ -1,8 +1,8 @@
 source("scenario_planner.R")
 
 
-#df <- read.csv('input data.csv', header = TRUE)
-df <- read.csv('new_input2.csv', header = TRUE)#, stringsAsFactors=FALSE)
+df <- read.csv('input data.csv', header = TRUE)
+#df <- read.csv('new_input2.csv', header = TRUE)#, stringsAsFactors=FALSE)
 
 df[2, ] <- colnames(df)
 #df <-df[,c(2,1)]
@@ -19,9 +19,10 @@ df_pred <- predictions(df)
 
 df_pred
 
-df_pred$prediction <- sapply(df_pred$prediction, FUN=function(x) prettyNum(x, big.mark=","))
-df_
 
+datatable(df_pred, class = 'cell-border stripe')
 
-barplot(df_pred$prediction, main="Predicted Sales Distribution", names.arg=(df_pred$model),
-        xlab="Model")
+makeIndexCol <- function(df){
+  df$ID<-seq.int(nrow(df))
+  df
+}
