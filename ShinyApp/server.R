@@ -11,10 +11,7 @@ server = function(input, output) {
     # Return null if file is empty.
     inFile <- input$user_file
     if (is.null(inFile)){return(NULL)}
-    #if (dim(inFile)){return(NULL)}
-    
 
-    
     # Only read in data when user explicity does so.
     isolate({ 
       my_data <- read.csv(inFile$datapath, header=TRUE)#, stringsAsFactors=FALSE)
@@ -23,7 +20,6 @@ server = function(input, output) {
         need((dim(my_data)[1] == 1), label = "One row only")
       )
     })
-    
     my_data
   })
   
@@ -112,8 +108,6 @@ server = function(input, output) {
     )%>%
     layout(yaxis = list(title = 'Count'),
            xaxis = list(title = 'Model'))
-    
-    
   })
 }
 
